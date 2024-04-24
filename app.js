@@ -8,20 +8,21 @@ app.use(cors());
 
 app.get("/api/init", async (req, res) => {
   const { id } = req.query;
+  console.log(id, "id");
   // console.log(dat);
-  const urlInit = "https://nu.ummn.nu/api/v1/init?p=y&23=1llum1n471";
-  const convertUrl = `https://uunu.ummn.nu/api/v1/convert`;
-  const resInit = await axios.get(urlInit);
-  let sig = resInit.data.convertURL.split("?sig=")[1];
-  // console.log(sig, "sig");
-  const resConvert = await axios.get(
-    `${convertUrl}?sig=${sig}&v=https://www.youtube.com/watch?v=${id}&f=mp3&_=0.296221927706`
-  );
-  // console.log(resConvert.data.redirectURL, "resConvert");
-  const dataConvert = await axios.get(resConvert.data.redirectURL);
+  // const urlInit = "https://nu.ummn.nu/api/v1/init?p=y&23=1llum1n471";
+  // const convertUrl = `https://uunu.ummn.nu/api/v1/convert`;
+  // const resInit = await axios.get(urlInit);
+  // let sig = resInit.data.convertURL.split("?sig=")[1];
+  // // console.log(sig, "sig");
+  // const resConvert = await axios.get(
+  //   `${convertUrl}?sig=${sig}&v=https://www.youtube.com/watch?v=${id}&f=mp3&_=0.296221927706`
+  // );
+  // // console.log(resConvert.data.redirectURL, "resConvert");
+  // const dataConvert = await axios.get(resConvert.data.redirectURL);
   return res.status(200).json({
     message: "Init API",
-    downloadURL: dataConvert.data.downloadURL,
+    // downloadURL: dataConvert.data.downloadURL,
     status: "success",
   });
 });
