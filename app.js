@@ -9,15 +9,18 @@ app.use(cors());
 app.get("/api/init", async (req, res) => {
   try {
     const { id } = req.query;
+    //timeout 1h
+    const timeout = 3600000;
     let shouldCallAgain = true;
     const delay = 1000;
     const urlInit = "https://nu.ummn.nu/api/v1/init?p=y&23=1llum1n471";
-    const resInit = await axios.get(urlInit);
+    const resInit = await axios.get(urlInit, { timeout: timeout });
     console.log(resInit.data, "resInit");
     let redirectURL = "";
     let downloadURL = "";
     const resConvert = await axios.get(
-      `${resInit.data.convertURL}&v=https://www.youtube.com/watch?v=${id}&f=mp3&_=0.296221927706`
+      `${resInit.data.convertURL}&v=https://www.youtube.com/watch?v=${id}&f=mp3&_=0.296221927706`,
+      { timeout: timeout }
     );
     if (resConvert.data.downloadURL) {
       downloadURL = resConvert.data.downloadURL;
@@ -36,7 +39,9 @@ app.get("/api/init", async (req, res) => {
     console.log(resConvert.data, "resConvert");
 
     if (resConvert.data.redirectURL) {
-      const redirect = await axios.get(resConvert.data.redirectURL);
+      const redirect = await axios.get(resConvert.data.redirectURL, {
+        timeout: timeout,
+      });
       // console.log(redirect.data, "redirect");
       redirectURL = redirect.data.redirectURL;
       downloadURL = redirect.data.downloadURL;
@@ -44,9 +49,13 @@ app.get("/api/init", async (req, res) => {
     if (resConvert.data.progressURL) {
       while (shouldCallAgain) {
         if (redirectURL) {
-          dataConvert = await axios.get(redirectURL);
+          dataConvert = await axios.get(redirectURL, {
+            timeout: timeout,
+          });
         } else {
-          dataConvert = await axios.get(resConvert.data.progressURL);
+          dataConvert = await axios.get(resConvert.data.progressURL, {
+            timeout: timeout,
+          });
         }
         if (dataConvert.data.progress >= 3) {
           shouldCallAgain = false;
