@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 import fetch from "node-fetch";
+import axios from "axios";
 
 const app = express();
 app.use(express.json());
@@ -11,19 +12,17 @@ app.get("/api/init", async (req, res) => {
   // console.log(dat);
   const urlInit = "https://nu.ummn.nu/api/v1/init?p=y&23=1llum1n471";
   const convertUrl = `https://uunu.ummn.nu/api/v1/convert`;
-  const resInit = await fetch(urlInit).then((res) => res.json());
-  let sig = resInit.convertURL.split("?sig=")[1];
-  console.log(sig, "sig");
-  const resConvert = await fetch(
+  const resInit = await axios.get(urlInit);
+  let sig = resInit.data.convertURL.split("?sig=")[1];
+  // console.log(sig, "sig");
+  const resConvert = await axios.get(
     `${convertUrl}?sig=${sig}&v=https://www.youtube.com/watch?v=${id}&f=mp3&_=0.296221927706`
-  ).then((res) => res.json());
-  console.log(resConvert.redirectURL, "resConvert");
-  const dataConvert = await fetch(resConvert.redirectURL).then((response) =>
-    response.json()
   );
+  // console.log(resConvert.data.redirectURL, "resConvert");
+  const dataConvert = await axios.get(resConvert.data.redirectURL);
   return res.status(200).json({
     message: "Init API",
-    downloadURL: dataConvert.downloadURL,
+    downloadURL: dataConvert.data.downloadURL,
     status: "success",
   });
 });
