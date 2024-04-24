@@ -24,6 +24,7 @@ app.get("/api/init", async (req, res) => {
   return res.status(200).json({
     message: "Init API",
     // downloadURL: dataConvert.data.downloadURL,
+    downloadURL: resConvert.data.redirectURL,
     status: "success",
   });
 });
