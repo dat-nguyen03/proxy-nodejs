@@ -13,11 +13,11 @@ app.get("/api/init", async (req, res) => {
   const convertUrl = `https://uunu.ummn.nu/api/v1/convert`;
   const resInit = await fetch(urlInit).then((res) => res.json());
   let sig = resInit.convertURL.split("?sig=")[1];
-  console.log(sig);
+  console.log(sig, "sig");
   const resConvert = await fetch(
     `${convertUrl}?sig=${sig}&v=https://www.youtube.com/watch?v=${id}&f=mp3&_=0.296221927706`
   ).then((res) => res.json());
-  console.log(resConvert.redirectURL);
+  console.log(resConvert.redirectURL, "resConvert");
   const dataConvert = await fetch(resConvert.redirectURL).then((response) =>
     response.json()
   );
