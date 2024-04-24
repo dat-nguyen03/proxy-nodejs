@@ -10,9 +10,10 @@ app.get("/api/init", async (req, res) => {
   const { id } = req.query;
   console.log(id, "id");
   // console.log(dat);
-  // const urlInit = "https://nu.ummn.nu/api/v1/init?p=y&23=1llum1n471";
+  const urlInit = "https://nu.ummn.nu/api/v1/init?p=y&23=1llum1n471";
   // const convertUrl = `https://uunu.ummn.nu/api/v1/convert`;
-  // const resInit = await axios.get(urlInit);
+  const resInit = await axios.get(urlInit);
+  console.log(resInit.data, "resInit");
   // let sig = resInit.data.convertURL.split("?sig=")[1];
   // // console.log(sig, "sig");
   // const resConvert = await axios.get(
