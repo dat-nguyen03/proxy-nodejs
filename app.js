@@ -4,12 +4,7 @@ import fetch from "node-fetch";
 
 const app = express();
 app.use(express.json());
-app.use(
-  cors({
-    origin: "https://ytb-to-mp3-converter.vercel.app",
-    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-  })
-);
+app.use(cors({ origin: true, credentials: true }));
 
 app.get("/api/init", async (req, res) => {
   const { id } = req.query;
