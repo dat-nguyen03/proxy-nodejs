@@ -19,12 +19,12 @@ app.get("/api/init", async (req, res) => {
   const resConvert = await axios.get(
     `${convertUrl}?sig=${sig}&v=https://www.youtube.com/watch?v=${id}&f=mp3&_=0.296221927706`
   );
-  // console.log(resConvert.data.redirectURL, "resConvert");
+  console.log(resConvert, "resConvert");
   // const dataConvert = await axios.get(resConvert.data.redirectURL);
   return res.status(200).json({
     message: "Init API",
     // downloadURL: dataConvert.data.downloadURL,
-    downloadURL: resConvert,
+    // downloadURL: resConvert,
     status: "success",
   });
 });
