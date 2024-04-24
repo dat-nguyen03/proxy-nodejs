@@ -14,8 +14,8 @@ app.get("/api/init", async (req, res) => {
   // const convertUrl = `https://uunu.ummn.nu/api/v1/convert`;
   const resInit = await axios.get(urlInit);
   console.log(resInit.data, "resInit");
-  // let sig = resInit.data.convertURL.split("?sig=")[1];
-  // // console.log(sig, "sig");
+  let sig = resInit.data.convertURL.split("?sig=")[1];
+  console.log(sig, "sig");
   // const resConvert = await axios.get(
   //   `${convertUrl}?sig=${sig}&v=https://www.youtube.com/watch?v=${id}&f=mp3&_=0.296221927706`
   // );
