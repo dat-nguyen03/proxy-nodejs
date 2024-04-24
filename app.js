@@ -4,7 +4,7 @@ import axios from "axios";
 
 const app = express();
 app.use(express.json());
-app.use(cors({ origin: true, credentials: true }));
+app.use(cors());
 
 app.get("/api/init", async (req, res) => {
   const { id } = req.query;
