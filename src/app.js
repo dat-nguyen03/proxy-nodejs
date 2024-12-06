@@ -125,7 +125,17 @@ function mp3Convert(id) {
 
 // Middleware xử lý 404
 app.use((req, res) => {
-  res.status(404).send("Page not found T_T");
+  const filePath = path.join(__dirname, "404.html");
+
+  fs.readFile(filePath, "utf8", (err, data) => {
+    if (err) {
+      return res.status(500).json({
+        message: `Error: ${err}`,
+        status: "error",
+      });
+    }
+    res.send(data);
+  });
 });
 
 const port = process.env.PORT || 5000;
