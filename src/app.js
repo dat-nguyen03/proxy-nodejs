@@ -123,6 +123,11 @@ function mp3Convert(id) {
   // return resConvert;
 }
 
+// Middleware xử lý 404
+app.use((req, res) => {
+  res.status(404).send("Page not found T_T");
+});
+
 const port = process.env.PORT || 5000;
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
