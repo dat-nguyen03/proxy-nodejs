@@ -1,10 +1,46 @@
 import express from "express";
 import cors from "cors";
 import axios from "axios";
+import fs from "fs";
+import path from "path";
+import { fileURLToPath } from "url";
 
 const app = express();
 app.use(express.json());
 app.use(cors());
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// sử dụng middleware express.static để phục vụ các file tĩnh
+app.use(express.static(path.join(__dirname, "public")));
+
+app.get("/", async (req, res) => {
+  const filePath = path.join(__dirname, "index.html");
+
+  fs.readFile(filePath, "utf8", (err, data) => {
+    if (err) {
+      return res.status(500).json({
+        message: `Error: ${err}`,
+        status: "error",
+      });
+    }
+    res.send(data);
+  });
+});
+
+app.get("/product/:id", async (req, res) => {
+  const filePath = path.join(__dirname, "detail.html");
+  fs.readFile(filePath, "utf8", (err, data) => {
+    if (err) {
+      return res.status(500).json({
+        message: `Error: ${err}`,
+        status: "error",
+      });
+    }
+    res.send(data);
+  });
+});
 
 app.get("/api/init", async (req, res) => {
   try {
